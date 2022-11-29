@@ -1,74 +1,83 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var restaurant = require("../models/restaurant");
-
-module.exports = {
-  // establish connection to database
-  initialize(url) {
-    if (mongoose.connect(url)) {
-      console.log("====================================");
-      console.log("Connected to the database...");
-      console.log("====================================");
-      return true;
-    } else {
-      console.log("Error! Could not connect to the database...");
-      return false;
-    }
+const restaurantSchema = new Schema({
+  address: {
+    building: String,
+    coord: [Number],
+    street: String,
+    zipcode: String,
   },
+  borough: String,
+  cuisine: String,
+  grades: [
+    {
+      date: Date,
+      grade: String,
+      score: Number,
+    },
+  ],
+  name: String,
+  restaurant_id: String,
+});
 
-  // add new restaurant to database using the data object
-  addNewRestaurant(data) {
-    restaurant.create(data, (err, data) => {
-      if (err) throw err;
-      console.log("====================================");
-      console.log("Successful! Document inserted...");
-      console.log("====================================");
-      let id = data._id;
+module.exports = class RestaurantDB {
+  constructor() {
+    // We don't have a `Restaurant` object until initialize() is complete
+    this.Restaurant = null;
+  }
 
-      // get the newly created restaurant from database
-      restaurant.findById(id, (err, data) => {
-        if (err) throw err;
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
+  // Pass the connection string to `initialize()`
+  initialize(connectionString) {
+    return new Promise((resolve, reject) => {
+      const db = mongoose.createConnection(connectionString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+
+      db.once("error", (err) => {
+        reject(err);
+      });
+      db.once("open", () => {
+        this.Restaurant = db.model("restaurants", restaurantSchema);
+        resolve();
       });
     });
-  },
+  }
 
-  // get all restaurants from database
-  getAllRestaurants(page, perPage, borough) {},
+  async addNewRestaurant(data) {
+    console.log(data);
+    const newRestaurant = new this.Restaurant(data);
+    await newRestaurant.save();
+    return newRestaurant;
+  }
 
-  // get a restaurant from database
+  getAllRestaurants(page, perPage, borough) {
+    let findBy = borough ? { borough } : {};
+
+    if (+page && +perPage) {
+      return this.Restaurant.find(findBy)
+        .sort({ restaurant_id: +1 })
+        .skip((page - 1) * +perPage)
+        .limit(+perPage)
+        .lean()
+        .exec();
+    }
+
+    return Promise.reject(
+      new Error("page and perPage query parameters must be valid numbers")
+    );
+  }
+
   getRestaurantById(id) {
-    let document = "";
-    restaurant.findById(id, (err, data) => {
-      if (err) throw err;
-      document = data;
-    });
+    return this.Restaurant.findOne({ _id: id }).lean().exec();
+  }
 
-    return document;
-  },
-
-  // update a restaurant in the database
   updateRestaurantById(data, id) {
-    // save the restaurant to the database...
-    restaurant.findByIdAndUpdate(id, data, (err, data) => {
-      if (err) throw err;
-      console.log("====================================");
-      console.log(`Successful! Restaurant updated - ${data.name}`);
-      console.log("====================================");
-    });
-  },
+    return this.Restaurant.updateOne({ _id: id }, { $set: data }).lean().exec();
+  }
 
-  // delete a restaurant from database
-  deleteRestaurant(id) {
-    restaurant.remove({ _id: id }, (err) => {
-      if (err) throw err;
-      else {
-        console.log("====================================");
-        console.log("Successful! Restaurant has been deleted...");
-        console.log("====================================");
-      }
-    });
-  },
+  deleteRestaurantById(id) {
+    return this.Restaurant.deleteOne({ _id: id }).exec();
+  }
 };

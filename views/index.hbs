@@ -1,0 +1,24 @@
+<div class="headcontainer">
+<a href="/api/restaurants" style="text-align: center;display:inline-block "><div class="heading">Restaurants</div></a>
+</div>
+<div style="display: flex;justify-content:space-between"><a class="paginationButton" href="/api/restaurants/addNew ">Add New</a>
+<a class="paginationButton" href="/api/restaurants/filter ">Filter Results</a>
+</div>
+{{#each data}}
+{{!-- {{#if this.address.building}} --}}
+<a href="/api/restaurants/{{this._id}}">
+    <div class="restContainer">
+   <p class="restName"> {{this.name}}</p>
+   <div class="restAddress"><div style="font-weight:700;display:inline-block;padding:5px">Address :</div> {{this.address.building}} , {{this.address.street}} ,   {{this.address.zipcode}}</div>
+    <div style="font-weight:900;display:inline-block;padding:5px;color:white">Borough : {{this.borough}}</div>
+  
+  </div>
+  {{!-- {{/if}} --}}
+</a>
+
+    {{/each}} 
+ <div class="navigation">
+  <a class="paginationButton" href="/api/restaurants/?page={{PrevPage page}}&perPage{{perPage}} ">Previous</a>
+  <a class="paginationButton" href="/api/restaurants/?page={{NextPage page}}&perPage{{perPage}} ">Next</a>
+  </div>
+  

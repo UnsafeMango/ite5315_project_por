@@ -1,0 +1,40 @@
+<h1 style="text-align: center">Edit Restaurant</h1>
+<h5><a class="paginationButton" href="/api/restaurants/ ">Go Back</a></h5>
+<div class="editContainer">
+  <form method="POST" action="/api/restaurants/{{data._id}}?_method=PUT">
+    <input
+      type="text"
+      name="name"
+      placeholder="{{data.name}}"
+      style="display:block;width:100%"
+    />
+    <input
+      type="text"
+      name="building"
+      placeholder="{{data.address.building}}"
+      style="width:24.5%"
+    />
+    <input
+      type="text"
+      name="street"
+      placeholder="{{data.address.street}}"
+      style="width:24.5%"
+    />
+    <input
+      type="text"
+      name="zipcode"
+      placeholder="{{data.address.zipcode}}"
+      style="width:24.5%"
+    />
+    <input
+      type="text"
+      name="borough"
+      placeholder="{{data.borough}}"
+      style="width:24.5%"
+    />
+    <input style="display: block" type="submit" /></form>
+
+  <form method="POST" action="/api/restaurants/{{data._id}}?_method=DELETE">
+    <button class="paginationButton" type="submit">Delete</button>
+  </form>
+</div>

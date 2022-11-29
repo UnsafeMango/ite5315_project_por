@@ -1,0 +1,98 @@
+.container{
+    padding: 8rem;
+    padding-top: 0;
+    padding-bottom: 1rem;
+}
+.heading{
+  color: #e31c1c;
+  font-size: 3rem;
+}
+.heading:hover{
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+
+.headcontainer{display: flex;
+    justify-content: center;
+}
+.restContainer{
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    border-radius: 5px; 
+    background-color: rgb(121, 131, 173);
+    margin: 10px;
+
+}
+
+
+.restName{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: aliceblue;
+    margin: 0 !important;
+}
+.restAddress{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: azure;
+}
+
+.restContainer:hover {
+    background-color: rgb(15, 67, 196);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  input[type=text], select {
+
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .editContainer{
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+      
+  }
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: rgb(121, 131, 173);
+  }
+  input[type=submit]:hover{
+    background-color: rgb(15, 67, 196);
+  }
+
+  .paginationButton{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+   
+  }
+  .paginationButton:hover{
+    background-color: rgb(121, 131, 173);
+  }
+  .navigation{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
