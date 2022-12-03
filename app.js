@@ -235,7 +235,7 @@ app.get("/api/restaurants/addNew", (req, res) => {
 });
 
 app.get("/api/restaurants/filter", (req, res) => {
-  res.render("Filter.hbs");
+  res.render("filter.hbs");
 });
 // Getting restaurant by ID
 app.get("/api/restaurants/:_id", (req, res) => {
