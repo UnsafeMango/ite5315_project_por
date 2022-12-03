@@ -46,7 +46,7 @@ module.exports = class RestaurantDB {
   }
 
   async addNewRestaurant(data) {
-    console.log(data);
+    console.log("restaurantdb ", data);
     const newRestaurant = new this.Restaurant(data);
     await newRestaurant.save();
     return newRestaurant;

@@ -1,5 +1,5 @@
 <div class="headcontainer">
-<a href="/api/restaurants" style="text-align: center;display:inline-block "><div class="heading">Restaurants</div></a>
+<a href="/api/restaurants/?page=1&perPage=5" style="text-align: center;display:inline-block "><div class="heading">Restaurants</div></a>
 </div>
 <div style="display: flex;justify-content:space-between"><a class="paginationButton" href="/api/restaurants/addNew ">Add New</a>
 <a class="paginationButton" href="/api/restaurants/filter ">Filter Results</a>
@@ -18,7 +18,7 @@
 
     {{/each}} 
  <div class="navigation">
-  <a class="paginationButton" href="/api/restaurants/?page={{PrevPage page}}&perPage{{perPage}} ">Previous</a>
-  <a class="paginationButton" href="/api/restaurants/?page={{NextPage page}}&perPage{{perPage}} ">Next</a>
+  <a class="paginationButton" href="/api/restaurants/?page={{PrevPage page}}&perPage={{perPage}}&borough={{borough}} ">Previous</a>
+  <a class="paginationButton" href="/api/restaurants/?page={{NextPage page}}&perPage={{perPage}}&borough={{borough}} ">Next</a>
   </div>
   
