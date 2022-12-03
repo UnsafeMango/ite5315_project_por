@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
-const RestaurantDB = require("./config/restaurantDB.js");
+const RestaurantDB = require("./config/database.js");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
